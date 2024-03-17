@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 export const ChartComponent = ({ data, colors }) => {
     const chartContainerRef = useRef();
-    const [chartData, setChartData] = useState(data);
+   
 
     useEffect(() => {
         const chart = createChart(chartContainerRef.current, {
@@ -16,9 +16,9 @@ export const ChartComponent = ({ data, colors }) => {
                 horzLines: { color: colors?.lineColor || '#2962FF' },
             },
             width: 1000,
-            height: 450,
+            height: 400,
         });
-
+         
         const candlestickSeries = chart.addCandlestickSeries({
             upColor: '#26a69a',
             downColor: '#ef5350',
@@ -26,7 +26,7 @@ export const ChartComponent = ({ data, colors }) => {
             wickUpColor: '#26a69a',
             wickDownColor: '#ef5350',
         });
-        candlestickSeries.setData(chartData);
+        candlestickSeries.setData(data);
 
         candlestickSeries.applyOptions({
             wickUpColor: 'rgb(54, 116, 217)',
@@ -47,9 +47,13 @@ export const ChartComponent = ({ data, colors }) => {
         chart.timeScale().applyOptions({
             borderColor: '#71649C',
             barSpacing: 10,
+            lockVisibleTimeRangeOnResize:true,
+            timeVisible:true,
+            rightOffset:6,
         });
+        
 
-        const lineData = chartData.map(datapoint => ({
+        const lineData = data.map(datapoint => ({
             time: datapoint.time,
             value: (datapoint.close + datapoint.open) / 2,
         }));
@@ -72,63 +76,100 @@ export const ChartComponent = ({ data, colors }) => {
             window.removeEventListener('resize', handleResize);
             chart.remove();
         };
-    }, [chartData, colors]);
+    }, [data, colors]);
 
     return <div ref={chartContainerRef} />;
 };
 
 const initialData = [
     // Data for 1-minute interval
-    {"time": 1622503860, "open": 102, "high": 108, "low": 98, "close": 105},
-    {"time": 1622503920, "open": 105, "high": 110, "low": 100, "close": 107},
-    {"time": 1622503980, "open": 107, "high": 112, "low": 102, "close": 105},
-    {"time": 1622504040, "open": 110, "high": 115, "low": 105, "close": 112},
-    // Add more 1-minute data points...
-   
-    // Data for 5-minute interval
-    {"time": 1622504100, "open": 100, "high": 110, "low": 95, "close": 105},
-    {"time": 1622504400, "open": 105, "high": 115, "low": 100, "close": 110},
-    {"time": 1622504700, "open": 110, "high": 120, "low": 105, "close": 115},
-    {"time": 1622505000, "open": 115, "high": 125, "low": 110, "close": 120},
-    // Add more 5-minute data points...
+    {"time": 1622503860, "open": 102, "high": 108, "low": 98, "close": 105}, // Bullish
+    {"time": 1622503920, "open": 105, "high": 110, "low": 100, "close": 107}, // Bullish
+    {"time": 1622503980, "open": 107, "high": 112, "low": 102, "close": 105}, // Bearish
+    {"time": 1622504040, "open": 110, "high": 115, "low": 105, "close": 112}, // Bullish
+    {"time": 1622504100, "open": 105, "high": 115, "low": 105, "close": 112}, // Bearish
+    {"time": 1622504160, "open": 112, "high": 120, "low": 110, "close": 115}, // Bullish
+    {"time": 1622504220, "open": 115, "high": 122, "low": 112, "close": 118}, // Bullish
+    {"time": 1622504280, "open": 118, "high": 125, "low": 115, "close": 122}, // Bearish
+    {"time": 1622504340, "open": 122, "high": 128, "low": 118, "close": 125}, // Bullish
+    {"time": 1622504400, "open": 125, "high": 130, "low": 120, "close": 128}, // Bearish
+    {"time": 1622504460, "open": 128, "high": 135, "low": 125, "close": 132}, // Bullish
+    {"time": 1622504520, "open": 132, "high": 138, "low": 128, "close": 135}, // Bearish
+    {"time": 1622504580, "open": 135, "high": 140, "low": 130, "close": 138}, // Bullish
+    {"time": 1622504640, "open": 138, "high": 145, "low": 135, "close": 142}, // Bearish
+    {"time": 1622504700, "open": 142, "high": 148, "low": 138, "close": 145}, // Bullish
+    {"time": 1622504760, "open": 145, "high": 150, "low": 140, "close": 148}, // Bullish
+    {"time": 1622504820, "open": 148, "high": 155, "low": 145, "close": 152}, // Bearish
+    {"time": 1622504880, "open": 152, "high": 158, "low": 148, "close": 155}, // Bullish
+    {"time": 1622504940, "open": 155, "high": 160, "low": 150, "close": 158}, // Bearish
+    {"time": 1622505000, "open": 158, "high": 165, "low": 155, "close": 162}, // Bullish
+    {"time": 1622505060, "open": 162, "high": 168, "low": 158, "close": 165}, // Bearish
+    {"time": 1622505120, "open": 165, "high": 170, "low": 160, "close": 168}, // Bullish
+    {"time": 1622505180, "open": 168, "high": 175, "low": 165, "close": 172}, // Bullish
+    {"time": 1622505240, "open": 172, "high": 178, "low": 168, "close": 175}, // Bearish
+    {"time": 1622505300, "open": 175, "high": 180, "low": 170, "close": 178}, // Bullish
+    {"time": 1622505360, "open": 178, "high": 185, "low": 175, "close": 182}, // Bearish
+    {"time": 1622505420, "open": 182, "high": 188, "low": 178, "close": 185}, // Bullish
+    {"time": 1622505480, "open": 185, "high": 190, "low": 180, "close": 188}, // Bearish
+    {"time": 1622505540, "open": 188, "high": 195, "low": 185, "close": 192}, // Bullish
+    {"time": 1622505600, "open": 192, "high": 198, "low": 188, "close": 195}, // Bearish
+    {"time": 1622505660, "open": 195, "high": 200, "low": 190, "close": 198}, // Bullish
+    {"time": 1622505720, "open": 198, "high": 205, "low": 195, "close": 202}, // Bullish
+    {"time": 1622505780, "open": 202, "high": 208, "low": 198, "close": 205}, // Bearish
+    {"time": 1622505840, "open": 205, "high": 210, "low": 200, "close": 208}, // Bull
+]
 
-    // Data for 10-minute interval
-    {"time": 1623286800, "open": 100, "high": 115, "low": 90, "close": 90},
-    {"time": 1623287400, "open": 110, "high": 125, "low": 95, "close": 120},
-    {"time": 1623288000, "open": 120, "high": 135, "low": 100, "close": 105},
-    {"time": 1623288600, "open": 130, "high": 145, "low": 110, "close": 140},
-    // Add more 10-minute data points...
+const mergeData = (data,interval) => {
+    const mergedData = [];
+    let currentInterval = null;
+    
+    data.forEach((datapoint, index) => {
+        if (index % interval === 0) {
+            if (currentInterval) {
+                mergedData.push(currentInterval);
+            }
+            currentInterval = {
+                time: new Date(datapoint.time * 1000).getTime(),
+                open: datapoint.open,
+                high: datapoint.high,
+                low: datapoint.low,
+                close: datapoint.close,
+            };
+        } else {
+            currentInterval.high = Math.max(currentInterval.high, datapoint.high);
+            currentInterval.low = Math.min(currentInterval.low, datapoint.low);
+            currentInterval.close = datapoint.close;
+        }
+    });
 
-    // Data for 1-hour interval
-    {"time":1623375000, "open": 100, "high": 120, "low": 80, "close": 90},
-    {"time": 1623378600, "open": 110, "high": 130, "low": 90, "close": 120},
-    {"time": 1623382200, "open": 120, "high": 140, "low": 100, "close": 130},
-    {"time": 1623385800, "open": 130, "high": 150, "low": 110, "close": 140},
-    // Add more 1-hour data points...
+    if (currentInterval) {
+        mergedData.push(currentInterval);
+    }
 
-    // Data for other time frames...
-];
-
+    return mergedData;
+};
 
 export default function App() {
-    const [selectedInterval, setSelectedInterval] = useState(1);
-
+    const[interval,setinterval]=useState(1);
     const handleIntervalChange = (interval) => {
-        setSelectedInterval(interval);
+        setinterval(interval);
     };
 
-    const filteredData = initialData.filter((item) => {
-        return item.time >= Date.now() - (selectedInterval * 60 * 1000);
-    });
+    const mergedData = mergeData(initialData,interval);
 
     return (
         <div>
-            <button onClick={() => handleIntervalChange(1)}>1 min</button>
+            <button onClick={() => handleIntervalChange(2)}>2 min</button>
+            <button onClick={() => handleIntervalChange(3)}>3 min</button>
+            <button onClick={() => handleIntervalChange(4)}>4 min</button>
             <button onClick={() => handleIntervalChange(5)}>5 min</button>
             <button onClick={() => handleIntervalChange(10)}>10 min</button>
-            <button onClick={() => handleIntervalChange(60)}>1 hr</button>
-            
-            <ChartComponent data={filteredData} colors={{}} />
+            <button onClick={() => handleIntervalChange(15)}>15 min</button>
+            <button onClick={() => handleIntervalChange(20)}>20 min</button>
+            <button onClick={() => handleIntervalChange(60)}>1Hr</button>
+            <button onClick={() => handleIntervalChange(120)}>2Hr</button>
+            <button onClick={() => handleIntervalChange(180)}>3Hr</button>
+            <ChartComponent data={mergedData} colors={{}} />
         </div>
     );
 }
