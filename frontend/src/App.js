@@ -1,7 +1,8 @@
 import { createChart } from 'lightweight-charts';
 import React, { useEffect, useRef, useState } from 'react';
 import { mergeData } from './mergedfunction.js';
-import {  initialData } from './data.js';
+import { FetchData } from './fetch_data.js';
+//import{ initialData} from './data.js';
 import {addCandlestickSeries} from './series/candlestickseris.js';
 import { addAreaSeries } from './series/areaseries.js';
 
@@ -58,7 +59,7 @@ export default function App() {
         setinterval(interval);
     };
     // calling mergeData function for mergeing the data.
-    const mergedData = mergeData(initialData,interval);
+    const mergedData = mergeData(FetchData(),interval);
 
     return (
         <div>
@@ -72,7 +73,7 @@ export default function App() {
             <button onClick={() => handleIntervalChange(60)}>1Hr</button>
             <button onClick={() => handleIntervalChange(120)}>2Hr</button>
             <button onClick={() => handleIntervalChange(180)}>3Hr</button>
-            <ChartComponent data={mergedData} colors={{}} />
+            <ChartComponent data={FetchData()} colors={{}} />
         </div>
     );
 }
