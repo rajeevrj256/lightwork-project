@@ -11,7 +11,7 @@ def get_excel_data():
     # Read CSV data using pandas
     excel_data = pd.read_csv("NIFTY 50_Historical_PR_01032023to21032024.csv")
     
-    
+    excel_data['Date']=pd.to_datetime(excel_data['Date'])
     # Sort DataFrame based on the 'Date' column
     excel_data_sorted = excel_data.sort_values(by='Date')
     
