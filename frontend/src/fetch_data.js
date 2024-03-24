@@ -12,7 +12,9 @@ export const FetchData = () => {
             const response = await fetch('http://127.0.0.1:5000/csv_data');
             const apiData = await response.json();
             const formattedData = convertToInitialData(apiData);
-            setInitialData(formattedData);
+            const sortedData = formattedData.sort((a, b) => a.time - b.time);
+            setInitialData(sortedData);
+            
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -20,13 +22,16 @@ export const FetchData = () => {
 
     const convertToInitialData = (apiData) => {
         // Convert the API data to the desired format
-        return apiData.map(item => ({
+        const formatteddata= apiData.map(item => ({
             time: Date.parse(item.Date), // Assuming Date is in a suitable format, convert it to a timestamp
             open: parseFloat(item.Open),
             high: parseFloat(item.High),
             low: parseFloat(item.Low),
             close: parseFloat(item.Close)
         }));
+        const filteredData = formatteddata.filter(item => !isNaN(item.time));
+
+        return filteredData;
     };
     return initialData;
 
