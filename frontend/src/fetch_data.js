@@ -4,9 +4,7 @@ export const FetchData = () => {
     const [initialData, setInitialData] = useState([]);
 
     useEffect(() => {
-        fetchData();
-    }, []);
-
+    
     const fetchData = async () => {
         try {
             const response = await fetch('http://127.0.0.1:5000/csv_data');
@@ -19,6 +17,8 @@ export const FetchData = () => {
             console.error('Error fetching data:', error);
         }
     };
+    fetchData();
+}, []);
 
     const convertToInitialData = (apiData) => {
         // Convert the API data to the desired format
