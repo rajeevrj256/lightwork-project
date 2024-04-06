@@ -15,7 +15,7 @@ export const addCandlestickSeries = (chart, data, colors) => {
         upColor: 'rgb(54, 116, 217)',
         wickDownColor: 'rgb(225, 50, 85)',
         downColor: 'rgb(225, 50, 85)',
-        borderVisible: false,
+        borderVisible: true,
     });
 
     candlestickSeries.priceScale().applyOptions({
