@@ -37,6 +37,7 @@ export const ChartComponent = ({ data, colors }) => {
             lockVisibleTimeRangeOnResize:true,
             timeVisible:true,
             rightOffset:6,
+            
         });
         const handleResize = () => {
             chart.applyOptions({ width: chartContainerRef.current.clientWidth, height: chartContainerRef.current.clientHeight });
@@ -58,10 +59,11 @@ export default function App() {
     const handleIntervalChange = (interval) => {
         setinterval(interval);
     };
-    // calling mergeData function for mergeing the data.
+    //fetching data ----assuming data fetched from backend im 1 min timeframe.
     const fetch_data=FetchData()
-    console.log(fetch_data);
     const mergedData = mergeData(fetch_data,interval);
+    console.log(fetch_data);
+    // calling mergeData function for mergeing the data.
 
     return (
         <div>
@@ -76,6 +78,7 @@ export default function App() {
             <button onClick={() => handleIntervalChange(120)}>2Hr</button>
             <button onClick={() => handleIntervalChange(180)}>3Hr</button>
             <ChartComponent data={mergedData} colors={{}} />
+            
         </div>
     );
 }

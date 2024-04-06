@@ -18,7 +18,7 @@ export const mergeData = (data,interval) => {
                 mergedData.push(currentInterval);
             }
             currentInterval = {
-                time: new Date(datapoint.time * 1000).getTime(),  // time should in timestamps.
+                time: datapoint.time,  // time should in timestamps.
                 open: datapoint.open,
                 high: datapoint.high,
                 low: datapoint.low,

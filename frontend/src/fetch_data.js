@@ -13,6 +13,7 @@ export const FetchData = () => {
            //handling with NaN data value.
            const filteredData = apiData.filter(item => !isNaN(item.time));
            //sorted data in asc order.
+
            const sortedData = filteredData.sort((a, b) => a.time - b.time);
             setInitialData(sortedData);
             

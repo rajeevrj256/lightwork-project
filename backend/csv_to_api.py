@@ -15,9 +15,9 @@ def get_excel_data():
         csv_data.drop(columns=["Index Name"], inplace=True)
         
         # Convert time into Unix timestamps
-        csv_data['time'] = csv_data['time'].apply(lambda x: pd.to_datetime(x, dayfirst=True).timestamp())
+        csv_data['time'] = pd.to_datetime(csv_data['time'], dayfirst=True).apply(lambda x: int(x.timestamp()))
         
-        # Sort DataFrame based on the 'Date' column
+        # Sort DataFrame based on the 'time' column
         csv_data_sorted = csv_data.sort_values(by='time')
         
         # Convert DataFrame to JSON
