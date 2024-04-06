@@ -14,18 +14,17 @@ def get_excel_data():
         # Drop the "Index Name" column
         csv_data.drop(columns=["Index Name"], inplace=True)
         
-        # Convert date into timestamp
-        csv_data['Date'] = pd.to_datetime(csv_data['Date'], dayfirst=True)
+        # Convert time into Unix timestamps
+        csv_data['time'] = csv_data['time'].apply(lambda x: pd.to_datetime(x, dayfirst=True).timestamp())
         
         # Sort DataFrame based on the 'Date' column
-        csv_data_sorted = csv_data.sort_values(by='Date')
+        csv_data_sorted = csv_data.sort_values(by='time')
         
         # Convert DataFrame to JSON
         json_data = csv_data_sorted.to_json(orient='records')
         
         # Set the Content-Type header to application/json
-        response = jsonify(json_data)
-        response.headers['Content-Type'] = 'application/json'
+        response = json_data
         
         return response
     

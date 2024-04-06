@@ -59,7 +59,9 @@ export default function App() {
         setinterval(interval);
     };
     // calling mergeData function for mergeing the data.
-    const mergedData = mergeData(FetchData(),interval);
+    const fetch_data=FetchData()
+    console.log(fetch_data);
+    const mergedData = mergeData(fetch_data,interval);
 
     return (
         <div>
@@ -73,7 +75,7 @@ export default function App() {
             <button onClick={() => handleIntervalChange(60)}>1Hr</button>
             <button onClick={() => handleIntervalChange(120)}>2Hr</button>
             <button onClick={() => handleIntervalChange(180)}>3Hr</button>
-            <ChartComponent data={FetchData()} colors={{}} />
+            <ChartComponent data={mergedData} colors={{}} />
         </div>
     );
 }
