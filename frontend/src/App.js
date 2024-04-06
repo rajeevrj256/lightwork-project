@@ -4,7 +4,7 @@ import { mergeData } from './mergedfunction.js';
 import { FetchData } from './fetch_data.js';
 //import{ initialData} from './data.js';
 import {addCandlestickSeries} from './series/candlestickseris.js';
-import { addAreaSeries } from './series/areaseries.js';
+//import { addAreaSeries } from './series/areaseries.js';
 
 export const ChartComponent = ({ data, colors }) => {
     const chartContainerRef = useRef();
@@ -27,7 +27,7 @@ export const ChartComponent = ({ data, colors }) => {
         //add candle stick series 
         addCandlestickSeries(chart,data,colors);
         // add areaSeries
-        addAreaSeries(chart,data,colors);
+        //addAreaSeries(chart,data,colors);
 
         
 
