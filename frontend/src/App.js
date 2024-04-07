@@ -6,8 +6,9 @@ import { FetchData } from './fetch_data.js';
 import {addCandlestickSeries} from './series/candlestickseris.js';
 //import { addAreaSeries } from './series/areaseries.js';
 
-export const ChartComponent = ({ data, colors }) => {
+export const ChartComponent = ({ data, colors,width,height }) => {
     const chartContainerRef = useRef();
+    
    
 
     useEffect(() => {
@@ -20,8 +21,8 @@ export const ChartComponent = ({ data, colors }) => {
                 vertLines: { color: colors?.lineColor || '#2962FF' },
                 horzLines: { color: colors?.lineColor || '#2962FF' },
             },
-            width:1008,
-            height:445,
+            width:width,
+            height:height,
            
             
         });
@@ -42,9 +43,11 @@ export const ChartComponent = ({ data, colors }) => {
             
         });
         const handleResize = () => {
-            chart.applyOptions({ width: chartContainerRef.current.clientWidth, height: chartContainerRef.current.clientHeight 
+            chart.applyOptions({ 
+                width: chartContainerRef.current.offsetWidth,
+                height: chartContainerRef.current.offsetHeight, 
             });
-            console.log(chartContainerRef.current.clientWidth);
+            
         };
 
         window.addEventListener('resize', handleResize);
@@ -54,9 +57,9 @@ export const ChartComponent = ({ data, colors }) => {
             chart.remove();
             
         };
-    }, [data, colors]);
+    }, [data, colors,width,height]);
 
-    return <div ref={chartContainerRef} />;
+    return <div ref={chartContainerRef} style={{ width: '100%', height: '100%' }}  />;
 };
 
 export default function App() {
@@ -72,19 +75,22 @@ export default function App() {
     // calling mergeData function for mergeing the data.
 
     return (
-        <div>
-            <button onClick={() => handleIntervalChange(2)}>2 min</button>
-            <button onClick={() => handleIntervalChange(3)}>3 min</button>
-            <button onClick={() => handleIntervalChange(4)}>4 min</button>
-            <button onClick={() => handleIntervalChange(5)}>5 min</button>
-            <button onClick={() => handleIntervalChange(10)}>10 min</button>
-            <button onClick={() => handleIntervalChange(15)}>15 min</button>
-            <button onClick={() => handleIntervalChange(20)}>20 min</button>
-            <button onClick={() => handleIntervalChange(60)}>1Hr</button>
-            <button onClick={() => handleIntervalChange(120)}>2Hr</button>
-            <button onClick={() => handleIntervalChange(180)}>3Hr</button>
-            <ChartComponent data={mergedData} colors={{}} style={{ width: '100%', height: '100vh'}} />
-            
+        <div style={{ width: '100%', height: '100%' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                <div>
+                    <button onClick={() => handleIntervalChange(2)}>2 min</button>
+                    <button onClick={() => handleIntervalChange(3)}>3 min</button>
+                    <button onClick={() => handleIntervalChange(4)}>4 min</button>
+                    <button onClick={() => handleIntervalChange(5)}>5 min</button>
+                    <button onClick={() => handleIntervalChange(10)}>10 min</button>
+                    <button onClick={() => handleIntervalChange(15)}>15 min</button>
+                    <button onClick={() => handleIntervalChange(20)}>20 min</button>
+                    <button onClick={() => handleIntervalChange(60)}>1Hr</button>
+                    <button onClick={() => handleIntervalChange(120)}>2Hr</button>
+                    <button onClick={() => handleIntervalChange(180)}>3Hr</button>
+                </div>
+                <ChartComponent data={mergedData} colors={{}} width={1008} height={445} />
+            </div>
         </div>
     );
 }

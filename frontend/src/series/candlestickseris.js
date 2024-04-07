@@ -11,7 +11,7 @@ export const addCandlestickSeries = (chart, data, colors) => {
     //apply options for customize the candlestick colors or visible.
 
     candlestickSeries.applyOptions({
-        wickUpColor: 'rgb(54, 116, 217)',
+        wickUpColor: 'rgb(186,184,108)',
         upColor: 'rgb(186,184,108)',
         wickDownColor: 'rgb(225, 50, 85)',
         downColor: 'rgb(225, 50, 85)',
