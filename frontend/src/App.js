@@ -58,6 +58,8 @@ export const ChartComponent = ({ data, colors,width,height }) => {
             
         };
     }, [data, colors,width,height]);
+    console.log(width);
+    console.log(height);
 
     return <div ref={chartContainerRef} style={{ width: '100%', height: '100%' }}  />;
 };
@@ -89,7 +91,7 @@ export default function App() {
                     <button onClick={() => handleIntervalChange(120)}>2Hr</button>
                     <button onClick={() => handleIntervalChange(180)}>3Hr</button>
                 </div>
-                <ChartComponent data={mergedData} colors={{}} width={1008} height={445} />
+                <ChartComponent data={mergedData} colors={{}}  />
             </div>
         </div>
     );
