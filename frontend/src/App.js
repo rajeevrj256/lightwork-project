@@ -13,15 +13,17 @@ export const ChartComponent = ({ data, colors }) => {
     useEffect(() => {
         const chart = createChart(chartContainerRef.current, {
             layout: {
-                background: { color: colors?.backgroundColor || 'white' },
-                textColor: colors?.textColor || 'black',
+                background: { color: colors?.backgroundColor || 'black' },
+                textColor: colors?.textColor || 'white',
             },
             grid: {
                 vertLines: { color: colors?.lineColor || '#2962FF' },
                 horzLines: { color: colors?.lineColor || '#2962FF' },
             },
-            width: 1000,
-            height: 400,
+            width:1008,
+            height:445,
+           
+            
         });
          
         //add candle stick series 
@@ -40,7 +42,9 @@ export const ChartComponent = ({ data, colors }) => {
             
         });
         const handleResize = () => {
-            chart.applyOptions({ width: chartContainerRef.current.clientWidth, height: chartContainerRef.current.clientHeight });
+            chart.applyOptions({ width: chartContainerRef.current.clientWidth, height: chartContainerRef.current.clientHeight 
+            });
+            console.log(chartContainerRef.current.clientWidth);
         };
 
         window.addEventListener('resize', handleResize);
@@ -48,6 +52,7 @@ export const ChartComponent = ({ data, colors }) => {
         return () => {
             window.removeEventListener('resize', handleResize);
             chart.remove();
+            
         };
     }, [data, colors]);
 
@@ -63,6 +68,7 @@ export default function App() {
     const fetch_data=FetchData()
     const mergedData = mergeData(fetch_data,interval);
     console.log(fetch_data);
+   
     // calling mergeData function for mergeing the data.
 
     return (
@@ -77,7 +83,7 @@ export default function App() {
             <button onClick={() => handleIntervalChange(60)}>1Hr</button>
             <button onClick={() => handleIntervalChange(120)}>2Hr</button>
             <button onClick={() => handleIntervalChange(180)}>3Hr</button>
-            <ChartComponent data={mergedData} colors={{}} />
+            <ChartComponent data={mergedData} colors={{}} style={{ width: '100%', height: '100vh'}} />
             
         </div>
     );
