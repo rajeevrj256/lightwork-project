@@ -1,9 +1,9 @@
 import { createChart } from 'lightweight-charts';
 import React, { useEffect, useRef, useState } from 'react';
-import { mergeData } from './mergedfunction.js';
-import { FetchData } from './fetch_data.js';
+import { mergeData } from './components/features/mergedfunction.js';
+import { FetchData } from './services/fetch_data.js';
 //import{ initialData} from './data.js';
-import {addCandlestickSeries} from './series/candlestickseris.js';
+import {addCandlestickSeries} from './components/series/candlestickseris.js';
 //import { addAreaSeries } from './series/areaseries.js';
 
 export const ChartComponent = ({ data, colors,width,height }) => {
