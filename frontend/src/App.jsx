@@ -5,6 +5,9 @@ import { FetchData } from './services/fetch_data.js';
 //import{ initialData} from './data.js';
 import {addCandlestickSeries} from './components/series/candlestickseris.js';
 //import { addAreaSeries } from './series/areaseries.js';
+import {  DatePickerComponent} from './components/dates/datepicker.js';
+import './assets/style/style.css';
+
 
 export const ChartComponent = ({ data, colors,width,height }) => {
     const chartContainerRef = useRef();
@@ -73,6 +76,11 @@ export default function App() {
     const fetch_data=FetchData()
     const mergedData = mergeData(fetch_data,interval);
     console.log(fetch_data);
+    const[startdate,setstartdate]=useState(null);
+    const handleDateChange = (date) => {
+        setstartdate(date);
+    };
+    console.log(startdate);
    
     // calling mergeData function for mergeing the data.
 
@@ -87,10 +95,12 @@ export default function App() {
                     <button onClick={() => handleIntervalChange(10)}>10 min</button>
                     <button onClick={() => handleIntervalChange(15)}>15 min</button>
                     <button onClick={() => handleIntervalChange(20)}>20 min</button>
-                    <button onClick={() => handleIntervalChange(60)}>1Hr</button>
-                    <button onClick={() => handleIntervalChange(120)}>2Hr</button>
-                    <button onClick={() => handleIntervalChange(180)}>3Hr</button>
+                   
+                    
                 </div>
+                <div className="date-picker" >
+                <DatePickerComponent startDate={startdate} setstartDate={setstartdate} />
+            </div>
                 <ChartComponent data={mergedData} colors={{}}  />
             </div>
         </div>

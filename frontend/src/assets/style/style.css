@@ -1,0 +1,40 @@
+.app-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.control-panel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.date-picker {
+    margin-bottom: 10px;
+}
+
+.chart-container {
+    flex: 1;
+}
+/* Assuming the DatePicker is rendered as a popup/modal */
+.react-datepicker-popper {
+    z-index: 9999; /* Adjust the z-index as needed to ensure it appears above the chart */
+}
+
+/* If DatePicker is absolutely positioned, you may need to adjust its positioning */
+.react-datepicker {
+    position: relative;
+}
+
+.date-picker-container {
+    position: fixed;
+    top: 2px;
+    right: 20px;
+    height: 2px;
+    z-index: 9999; /* Adjust the z-index as needed to ensure it appears above the chart */
+}
+
+
