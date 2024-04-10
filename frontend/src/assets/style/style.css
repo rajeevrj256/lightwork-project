@@ -1,40 +1,18 @@
-.app-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
+/* Dropdown menu styles */
+.drop_down_menu {
+    position: absolute; /* Use absolute positioning */
+    top: -1px; /* Adjust the top position as needed */
+    right: 130px; /* Adjust the right position as needed */
+    z-index: 9999; /* Ensure the dropdown appears above other elements */
+    margin-top: -15px;
 }
 
-.control-panel {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-bottom: 10px;
-}
 
-.date-picker {
-    margin-bottom: 10px;
-}
 
-.chart-container {
-    flex: 1;
-}
-/* Assuming the DatePicker is rendered as a popup/modal */
-.react-datepicker-popper {
-    z-index: 9999; /* Adjust the z-index as needed to ensure it appears above the chart */
-}
-
-/* If DatePicker is absolutely positioned, you may need to adjust its positioning */
-.react-datepicker {
-    position: relative;
-}
-
+/* Date picker styles */
 .date-picker-container {
-    position: fixed;
-    top: 2px;
-    right: 20px;
-    height: 2px;
-    z-index: 9999; /* Adjust the z-index as needed to ensure it appears above the chart */
+    position: absolute; /* Use absolute positioning */
+    top: 2px; /* Adjust the top position as needed */
+    right: 20px; /* Adjust the right position as needed */
+    z-index: 9999; /* Ensure the date picker appears above other elements */
 }
-
-

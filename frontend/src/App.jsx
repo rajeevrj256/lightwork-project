@@ -7,7 +7,7 @@ import {addCandlestickSeries} from './components/series/candlestickseris.js';
 //import { addAreaSeries } from './series/areaseries.js';
 import {  DatePickerComponent} from './components/dates/datepicker.js';
 import './assets/style/style.css';
-
+import DropdownMenu from './components/drop_down_menu/symbol.js'
 
 export const ChartComponent = ({ data, colors,width,height }) => {
     const chartContainerRef = useRef();
@@ -97,6 +97,9 @@ export default function App() {
                     <button onClick={() => handleIntervalChange(20)}>20 min</button>
                    
                     
+                </div>
+                <div className='drop_down_menu'>
+                    <DropdownMenu/>
                 </div>
                 <div className="date-picker" >
                 <DatePickerComponent startDate={startdate} setstartDate={setstartdate} />
