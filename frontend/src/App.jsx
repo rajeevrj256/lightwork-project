@@ -1,13 +1,14 @@
 import { createChart } from 'lightweight-charts';
 import React, { useEffect, useRef, useState } from 'react';
 import { mergeData } from './components/features/mergedfunction.js';
-import { FetchData } from './services/fetch_data.js';
+import { FetchData } from './services/apis/fetch_data.js';
 //import{ initialData} from './data.js';
 import {addCandlestickSeries} from './components/series/candlestickseris.js';
 //import { addAreaSeries } from './series/areaseries.js';
 import {  DatePickerComponent} from './components/dates/datepicker.js';
 import './assets/style/style.css';
 import DropdownMenu from './components/drop_down_menu/symbol.js'
+import formatDate from './components/dates/formate_date.js';
 
 export const ChartComponent = ({ data, colors,width,height }) => {
     const chartContainerRef = useRef();
@@ -76,9 +77,18 @@ export default function App() {
     const fetch_data=FetchData()
     const mergedData = mergeData(fetch_data,interval);
     console.log(fetch_data);
+    
+    //update date in startdate picked from picker calender
+
     const[startdate,setstartdate]=useState(null);
+
     const handleDateChange = (date) => {
-        setstartdate(date);
+        if (date) {
+            const dateformate=formatDate(date)
+            setstartdate(dateformate); // Ensure it's a Date object
+        } else {
+            setstartdate(null); // Or handle null/undefined appropriately
+        }
     };
     console.log(startdate);
    
@@ -99,10 +109,10 @@ export default function App() {
                     
                 </div>
                 <div className='drop_down_menu'>
-                    <DropdownMenu/>
+                    <DropdownMenu date={startdate}/>
                 </div>
                 <div className="date-picker" >
-                <DatePickerComponent startDate={startdate} setstartDate={setstartdate} />
+                <DatePickerComponent startDate={startdate} setstartDate={handleDateChange} />
             </div>
                 <ChartComponent data={mergedData} colors={{}}  />
             </div>
