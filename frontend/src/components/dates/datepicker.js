@@ -17,6 +17,7 @@ const CustomInput = forwardRef(({ value, onClick }, ref) => {
 
 export const DatePickerComponent = ({ startDate, setstartDate }) => {
     const handleDateChange = (date) => {
+        
         setstartDate(date); // Update the dateFetch variable in the parent component (App)
     };
     

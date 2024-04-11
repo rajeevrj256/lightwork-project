@@ -8,7 +8,7 @@ import {addCandlestickSeries} from './components/series/candlestickseris.js';
 import {  DatePickerComponent} from './components/dates/datepicker.js';
 import './assets/style/style.css';
 import DropdownMenu from './components/drop_down_menu/symbol.js'
-import formatDate from './components/dates/formate_date.js';
+import formatDate from './hooks/formate_date.js';
 
 export const ChartComponent = ({ data, colors,width,height }) => {
     const chartContainerRef = useRef();
@@ -85,7 +85,7 @@ export default function App() {
     const handleDateChange = (date) => {
         if (date) {
             const dateformate=formatDate(date)
-            setstartdate(dateformate); // Ensure it's a Date object
+            setstartdate(dateformate); 
         } else {
             setstartdate(null); // Or handle null/undefined appropriately
         }
