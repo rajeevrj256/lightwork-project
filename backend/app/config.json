@@ -1,0 +1,7 @@
+{                                                                                                                                                                                                                  
+    "handler": "Example",
+    "handler_config": {
+        "symbol_file": "./data/symbol.csv",
+        "candle_data": "./data/NIFTY 50_Historical_PR_01032023to21032024.csv"
+    }   
+}
