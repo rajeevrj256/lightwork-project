@@ -32,9 +32,9 @@ class ExampleHandler(Handler):
         self.symbol_data = pd.read_csv(symbol_data_file, index_col=False)
 
     def getSymbolList(self, date):
-        if date in symbol_data.columns:
-            values=symbol_data[date],dropna().tolist()
-            return values
+        if date in self.symbol_data.columns:
+            return self.symbol_data[date].dropna().tolist()
+            
 
         return None
 
