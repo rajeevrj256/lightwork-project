@@ -1,7 +1,7 @@
 from flask import Flask                                                                                                                                                                                            
 from flask_cors import CORS
 
-from app.csv_to_api import blueprint as cta_blueprint
+from app.candle_route import blueprint as cta_blueprint
 
 
 __all__ = ['app']
