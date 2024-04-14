@@ -12,8 +12,8 @@ blueprint = Blueprint('candle_route', __name__)
 def get_excel_data(day,month,year,symbol):
     try:
         
-        ## TODO: get date and symbol in api
-        date_str=f"{day}/{month}/{year}"
+       
+        
         return  handler.getCandleStick(datetime.datetime.strptime(f"{day}{month}{year}", "%d%m%Y"), symbol)
 
     except Exception as e:
