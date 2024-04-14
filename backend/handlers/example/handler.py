@@ -1,6 +1,7 @@
 import os                                                                                                                                                                                                          
 import logging
 import pandas as pd
+from datetime import datetime
 
 from handlers.interface import Handler
 
@@ -32,6 +33,7 @@ class ExampleHandler(Handler):
         self.symbol_data = pd.read_csv(symbol_data_file, index_col=False)
 
     def getSymbolList(self, date):
+        
         if date in self.symbol_data.columns:
             return self.symbol_data[date].dropna().tolist()
             
@@ -39,4 +41,5 @@ class ExampleHandler(Handler):
         return None
 
     def getCandleStick(self, date, symbol):
+        
         return self.chart_data

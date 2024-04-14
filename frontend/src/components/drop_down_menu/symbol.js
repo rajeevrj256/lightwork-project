@@ -3,20 +3,24 @@ import React from 'react';
 import Select from "react-select";
 import useFetchSymbols from '../../services/apis/symbol_fetch'; 
 
-function DropdownMenu({ date }) {
+function DropdownMenu({ date ,onSelectOption}) {
     const { options } = useFetchSymbols(date);
     const [selectedOption, setSelectedOption] = React.useState(null);
     console.log(options)
+    console.log('Selected Option:', selectedOption);
    
 
     return (
         <div className="drop_down_menu" style={{ margin: 20, width: 200 }}>
             <Select
                 value={selectedOption}
-                onChange={setSelectedOption}
+                onChange={(option) => {
+                    setSelectedOption(option);
+                    onSelectOption(option);  // Call the callback function passed from App.js
+                }}
                 options={options}
                 isSearchable
-                isMulti
+                
                 noOptionsMessage={() => "Not found"}
                 placeholder="Select Symbol"
             />

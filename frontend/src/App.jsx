@@ -73,14 +73,15 @@ export default function App() {
     const handleIntervalChange = (interval) => {
         setinterval(interval);
     };
+    const[startdate,setstartdate]=useState(null);
+    const[option,setoption]=useState(null)
     //fetching data ----assuming data fetched from backend im 1 min timeframe.
-    const fetch_data=FetchData()
+    const fetch_data=FetchData(startdate,option?option.value:null)
     const mergedData = mergeData(fetch_data,interval);
-    console.log(fetch_data);
+    
     
     //update date in startdate picked from picker calender
 
-    const[startdate,setstartdate]=useState(null);
 
     const handleDateChange = (date) => {
         if (date) {
@@ -90,8 +91,22 @@ export default function App() {
             setstartdate(null); // Or handle null/undefined appropriately
         }
     };
+    console.log('date');
     console.log(startdate);
    
+    const handleoption=(option)=>{
+        if(option){
+            setoption(option)
+        }else{
+            setoption(null);
+        }
+    }
+    console.log('symbol');
+    
+ 
+    console.log(fetch_data);
+    console.log('app',option);
+    
     // calling mergeData function for mergeing the data.
 
     return (
@@ -109,7 +124,7 @@ export default function App() {
                     
                 </div>
                 <div className='drop_down_menu'>
-                    <DropdownMenu date={startdate}/>
+                    <DropdownMenu date={startdate} onSelectOption={handleoption}/>
                 </div>
                 <div className="date-picker" >
                 <DatePickerComponent startDate={startdate} setstartDate={handleDateChange} />

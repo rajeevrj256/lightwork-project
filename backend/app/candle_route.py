@@ -5,14 +5,15 @@ from handlers import handler
 
 __all__ = ['blueprint']
 
-blueprint = Blueprint('csv_to_apis', __name__)
+blueprint = Blueprint('candle_route', __name__)
 
 
-@blueprint.route('/csv_data', methods=['GET'])
-def get_excel_data():
+@blueprint.route('/csv_data/<day>/<month>/<year>/<symbol>', methods=['GET'])
+def get_excel_data(day,month,year,symbol):
     try:
+        date_str=f"{day}/{month}/{year}"
         ## TODO: get date and symbol in api
-        return handler.getCandleStick("20240413", "NIFTY 50")
+        return handler.getCandleStick(date_str, symbol)
     except Exception as e:
         res = jsonify({'error': str(e)})
         res.status_code = 504 
