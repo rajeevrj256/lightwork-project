@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify                                                                                                                                                                               
 
 from handlers import handler
-
+import datetime
 
 __all__ = ['blueprint']
 
@@ -23,7 +23,16 @@ def get_excel_data(day,month,year,symbol):
 @blueprint.route('/symbol/date=<day>/<month>/<year>',methods=['GET'])
 def symbol_with_dates(day, month, year):
     try:
+        if not (day.isdigit() and month.isdigit() and year.isdigit()):
+            return jsonify({"error": f"Invalid date format. Received day={day}, month={month}, year={year}. Expected numeric values."}), 400
+        
+        year_int = int(year)
+        month_int = int(month)
+        day_int = int(day)
+        
+        specific_date = datetime.date(year_int, month_int, day_int)
         date_str=f"{day}/{month}/{year}"
+        
         values = handler.getSymbolList(date_str)
         if values:
             return jsonify(values)
@@ -33,6 +42,6 @@ def symbol_with_dates(day, month, year):
             return res 
             
     except Exception as e:
-        res = jsonify({'symbol error',str(e)})
+        res = jsonify({'symbol error':str(e)})
         res.status_code = 504 
         return res 

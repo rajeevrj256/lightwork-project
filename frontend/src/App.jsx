@@ -70,19 +70,12 @@ export const ChartComponent = ({ data, colors,width,height }) => {
 
 export default function App() {
     const[interval,setinterval]=useState(1);
+
     const handleIntervalChange = (interval) => {
         setinterval(interval);
     };
     const[startdate,setstartdate]=useState(null);
-    const[option,setoption]=useState(null)
-    //fetching data ----assuming data fetched from backend im 1 min timeframe.
-    const fetch_data=FetchData(startdate,option?option.value:null)
-    const mergedData = mergeData(fetch_data,interval);
-    
-    
-    //update date in startdate picked from picker calender
-
-
+  //update date in startdate picked from picker calender
     const handleDateChange = (date) => {
         if (date) {
             const dateformate=formatDate(date)
@@ -91,9 +84,7 @@ export default function App() {
             setstartdate(null); // Or handle null/undefined appropriately
         }
     };
-    console.log('date');
-    console.log(startdate);
-   
+    const[option,setoption]=useState(null)
     const handleoption=(option)=>{
         if(option){
             setoption(option)
@@ -101,13 +92,11 @@ export default function App() {
             setoption(null);
         }
     }
-    console.log('symbol');
+    //fetching data ----assuming data fetched from backend im 1 min timeframe.
+    const fetch_data=FetchData(startdate,option?option.value:null)
+ // calling mergeData function for mergeing the data.
+    const mergedData = mergeData(fetch_data,interval);
     
- 
-    console.log(fetch_data);
-    console.log('app',option);
-    
-    // calling mergeData function for mergeing the data.
 
     return (
         <div style={{ width: '100%', height: '100%' }}>
