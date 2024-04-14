@@ -13,7 +13,8 @@ def get_excel_data(day,month,year,symbol):
     try:
         
         ## TODO: get date and symbol in api
-        return handler.getCandleStick(datetime.datetime.strptime(f"{day}{month}{year}", "%d%m%Y"), symbol)
+        date_str=f"{day}/{month}/{year}"
+        return handler.getCandleStick(date_str,symbol)
     except Exception as e:
         res = jsonify({'error': str(e)})
         res.status_code = 504 
@@ -26,7 +27,7 @@ def symbol_with_dates(day, month, year):
         
         date_str=f"{day}/{month}/{year}"
         
-        values = handler.getSymbolList(datetime.datetime.strptime(f"{day}{month}{year}", "%d%m%Y"))
+        values = handler.getSymbolList(date_str)
         if values:
             return jsonify(values)
         else:

@@ -21,8 +21,11 @@ class ExampleHandler(Handler):
 
         self.chart_data = pd.read_csv(candle_data_file)
 
-        self.chart_data.drop(columns=["Index Name"], inplace=True)
-        self.chart_data['time'] = pd.to_datetime(self.chart_data['time'], dayfirst=True).apply(lambda x: int(x.timestamp()))
+        ##self.chart_data.drop(columns=["Index Name"], inplace=True)
+        self.chart_data['time'] = pd.to_datetime(self.chart_data['time'], dayfirst=False)
+        self.chart_data['time'] = self.chart_data['time'].dt.tz_localize('UTC').dt.tz_convert('Asia/Kolkata')
+        self.chart_data['time'] = pd.to_datetime(self.chart_data['time']).apply(lambda x: int(x.timestamp()))
+        
         chart_data_sorted = self.chart_data.sort_values(by='time')
         self.chart_data = chart_data_sorted.to_json(orient='records')
 
