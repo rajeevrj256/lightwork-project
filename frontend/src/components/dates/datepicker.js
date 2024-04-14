@@ -26,6 +26,7 @@ export const DatePickerComponent = ({ startDate, setstartDate }) => {
             <DatePicker selected={startDate} 
             onChange={handleDateChange} 
             customInput={<CustomInput />}  
+            
              
              />
         </label>

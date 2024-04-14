@@ -78,12 +78,14 @@ export default function App() {
   //update date in startdate picked from picker calender
     const handleDateChange = (date) => {
         if (date) {
-            const dateformate=formatDate(date)
+            const dateformate=date;
             setstartdate(dateformate); 
         } else {
             setstartdate(null); // Or handle null/undefined appropriately
         }
     };
+    console.log('typeofstartdate',typeof startdate);
+
     const[option,setoption]=useState(null)
     const handleoption=(option)=>{
         if(option){
@@ -93,7 +95,7 @@ export default function App() {
         }
     }
     //fetching data ----assuming data fetched from backend im 1 min timeframe.
-    const fetch_data=FetchData(startdate,option?option.value:null)
+    const fetch_data=FetchData(formatDate(startdate),option?option.value:null)
  // calling mergeData function for mergeing the data.
     const mergedData = mergeData(fetch_data,interval);
     
@@ -113,7 +115,7 @@ export default function App() {
                     
                 </div>
                 <div className='drop_down_menu'>
-                    <DropdownMenu date={startdate} onSelectOption={handleoption}/>
+                    <DropdownMenu date={formatDate(startdate)} onSelectOption={handleoption}/>
                 </div>
                 <div className="date-picker" >
                 <DatePickerComponent startDate={startdate} setstartDate={handleDateChange} />
