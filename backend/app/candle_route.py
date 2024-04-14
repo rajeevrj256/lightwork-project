@@ -11,9 +11,7 @@ blueprint = Blueprint('candle_route', __name__)
 @blueprint.route('/csv_data/<day>/<month>/<year>/<symbol>', methods=['GET'])
 def get_excel_data(day,month,year,symbol):
     try:
-        
-       
-        
+    
         return  handler.getCandleStick(datetime.datetime.strptime(f"{day}{month}{year}", "%d%m%Y"), symbol)
 
     except Exception as e:

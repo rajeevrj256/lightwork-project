@@ -37,8 +37,8 @@ class ExampleHandler(Handler):
 
     def getSymbolList(self, date):
         
-        if date in self.symbol_data.columns:
-            return self.symbol_data[date].dropna().tolist()
+        if date.strftime("%d/%m/%Y") in self.symbol_data.columns:
+            return self.symbol_data[date.strftime("%d/%m/%Y")].dropna().tolist()
             
 
         return None
