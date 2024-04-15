@@ -16,3 +16,10 @@
     right: 20px; /* Adjust the right position as needed */
     z-index: 9999; /* Ensure the date picker appears above other elements */
 }
+.indicator_menu{
+    position:absolute;
+    top: -1px;
+    right:470px ;
+    margin:0;
+    z-index: 9999;
+}
