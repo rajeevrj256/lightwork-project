@@ -9,7 +9,7 @@ import {  DatePickerComponent} from './components/dates/datepicker.js';
 import './assets/style/style.css';
 import DropdownMenu from './components/drop_down_menu/symbol.js'
 import formatDate from './hooks/formate_date.js';
-import { SmaComponent } from './components/Indicator/sma.js';
+//import { SmaComponent } from './components/Indicator/sma.js';
 import IndicatorDropdown from './components/drop_down_menu/indicatoroption.js';
 
 
@@ -39,8 +39,8 @@ export const ChartComponent = ({ data, colors,width,height,madata}) => {
         //add areaSeries
        // addAreaSeries(chart,data,colors);
 
-        const maSeries=chart.addLineSeries({color:'#2962FF',lineWidth:1});
-        maSeries.setData(madata)
+        //const maSeries=chart.addLineSeries({color:'#2962FF',lineWidth:1});
+       // maSeries.setData(madata)
 
         
 
@@ -103,14 +103,14 @@ export default function App() {
  // calling mergeData function for mergeing the data.
     const mergedData = mergeData(fetch_data,interval);
 
-    const [maData, setMaData] = useState([]);
-
+    //const [maData, setMaData] = useState([]);
+/*
     useEffect(() => {
         const smaData = SmaComponent(mergedData, 20);
         setMaData(smaData);
     }, [mergedData]); 
     //console.log(maData)
-    
+    */
 
     return (
         <div style={{ width: '100%', height: '100%' }}>
@@ -136,7 +136,7 @@ export default function App() {
                 <div className="date-picker" >
                 <DatePickerComponent startDate={startdate} setstartDate={handleDateChange} />
             </div>
-                <ChartComponent data={mergedData} colors={{}} madata={maData} />
+                <ChartComponent data={mergedData} colors={{}} />
             </div>
         </div>
     );
