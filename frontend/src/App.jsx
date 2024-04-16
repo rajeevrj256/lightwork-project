@@ -4,6 +4,7 @@ import { mergeData } from './components/features/mergedfunction.js';
 import { FetchData } from './services/apis/fetch_data.js';
 //import{ initialData} from './data.js';
 import {addCandlestickSeries} from './components/series/candlestickseris.js';
+import { addlineSeries } from './components/series/lineseries.js';
 //import { addAreaSeries } from './components/series/areaseries.js';
 import {  DatePickerComponent} from './components/dates/datepicker.js';
 import './assets/style/style.css';
@@ -41,8 +42,7 @@ export const ChartComponent = ({ data, colors,width,height,smadata}) => {
         //add areaSeries
        // addAreaSeries(chart,data,colors);
 
-        const smaSeries=chart.addLineSeries({color:'#2962FF',lineWidth:1});
-        smaSeries.setData(smadata)
+       addlineSeries(chart,smadata,colors);
 
         
 
