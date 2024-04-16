@@ -11,9 +11,11 @@ import DropdownMenu from './components/drop_down_menu/symbol.js'
 import formatDate from './hooks/formate_date.js';
 //import { SmaComponent } from './components/Indicator/sma.js';
 import IndicatorDropdown from './components/drop_down_menu/indicatoroption.js';
+import { indiactormergeData } from './components/features/indicatormergerd.js';
+import { IndiactorFetchData } from './services/apis/indicator_data.js';
 
 
-export const ChartComponent = ({ data, colors,width,height,madata}) => {
+export const ChartComponent = ({ data, colors,width,height,smadata}) => {
     const chartContainerRef = useRef();
     
    
@@ -39,8 +41,8 @@ export const ChartComponent = ({ data, colors,width,height,madata}) => {
         //add areaSeries
        // addAreaSeries(chart,data,colors);
 
-        //const maSeries=chart.addLineSeries({color:'#2962FF',lineWidth:1});
-       // maSeries.setData(madata)
+        const smaSeries=chart.addLineSeries({color:'#2962FF',lineWidth:1});
+        smaSeries.setData(smadata)
 
         
 
@@ -67,7 +69,7 @@ export const ChartComponent = ({ data, colors,width,height,madata}) => {
             chart.remove();
             
         };
-    }, [data, colors,width,height,madata]);
+    }, [data, colors,width,height,smadata]);
 
     return <div ref={chartContainerRef} style={{ width: '100%', height: '100%' }}  />;
 };
@@ -98,19 +100,25 @@ export default function App() {
             setoption(null);
         }
     }
+
+    const[indicator,setindicator]=useState(null)
+    const handleIndicator=(indicator)=>{
+        if(indicator){
+            setindicator(indicator);
+        }else{
+            setindicator(null);
+        }
+    }
+
+    const indicator_data=IndiactorFetchData(indicator,formatDate(startdate),option?option.value:null)
+    const indicator_merged_data=indiactormergeData(indicator_data,interval)
     //fetching data ----assuming data fetched from backend im 1 min timeframe.
     const fetch_data=FetchData(formatDate(startdate),option?option.value:null)
  // calling mergeData function for mergeing the data.
     const mergedData = mergeData(fetch_data,interval);
 
-    //const [maData, setMaData] = useState([]);
-/*
-    useEffect(() => {
-        const smaData = SmaComponent(mergedData, 20);
-        setMaData(smaData);
-    }, [mergedData]); 
-    //console.log(maData)
-    */
+    
+    
 
     return (
         <div style={{ width: '100%', height: '100%' }}>
@@ -128,7 +136,7 @@ export default function App() {
                     
                 </div>
                 <div className='indicator_dropdown'>
-                    <IndicatorDropdown onSelectOption={handleoption}/>
+                    <IndicatorDropdown onSelectOption={handleIndicator}/>
                 </div>
                 <div className='drop_down_menu'>
                     <DropdownMenu date={formatDate(startdate)} onSelectOption={handleoption}/>
@@ -136,7 +144,7 @@ export default function App() {
                 <div className="date-picker" >
                 <DatePickerComponent startDate={startdate} setstartDate={handleDateChange} />
             </div>
-                <ChartComponent data={mergedData} colors={{}} />
+                <ChartComponent data={mergedData} colors={{}} smadata={indicator_merged_data} />
             </div>
         </div>
     );

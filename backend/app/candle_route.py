@@ -24,7 +24,7 @@ def get_excel_data(day,month,year,symbol):
 def symbol_with_dates(day, month, year):
     try:
         
-        date_str=f"{day}/{month}/{year}"
+        
         
         values = handler.getSymbolList(datetime.datetime.strptime(f"{day}{month}{year}", "%d%m%Y")) 
         if values:
@@ -38,3 +38,30 @@ def symbol_with_dates(day, month, year):
         res = jsonify({'symbol error':str(e)})
         res.status_code = 504 
         return res 
+    
+@blueprint.route('/indicator', methods=['GET'])
+def indicator_name():
+    try:
+        
+        data = handler.indicator_list()
+        if data:
+            return jsonify(data)
+        else:
+            res = jsonify({"error": "Date not found"})
+            res.status_code = 404 
+            return res
+            
+    except Exception as e:
+       
+        return jsonify({'error': str(e)}), 500  # Use HTTP 500 for Internal Server Error
+        
+@blueprint.route('/csv_data/<indicator>/<day>/<month>/<year>/<symbol>',methods=['GET'])
+def sma_data(indicator,day,month,year,symbol):
+    try:
+        return  handler.sma_data(datetime.datetime.strptime(f"{day}{month}{year}", "%d%m%Y"), symbol,indicator)
+    except Exception as e:
+        res = jsonify({'error': str(e)})
+        res.status_code = 504 
+        return res 
+        
+    

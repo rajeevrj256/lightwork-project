@@ -13,6 +13,8 @@ class ExampleHandler(Handler):
     def __init__(self):
         self.chart_data = None
         self.example_data = None
+        self.indicator_data=None
+        self.smaa_data=None
 
     def init(self, config):
         candle_data_file = config['candle_data']
@@ -34,6 +36,29 @@ class ExampleHandler(Handler):
         log.info(f'initializing with symbol file: {symbol_data_file}')
 
         self.symbol_data = pd.read_csv(symbol_data_file, index_col=False)
+        
+        indicator_file_data = config['indicator_file']
+        assert os.path.exists(indicator_file_data), f'Indicator data file not found: {indicator_file_data}'
+        log.info(f'initializing with indicator file: {indicator_file_data}')
+        
+        self.indicator_data=pd.read_csv(indicator_file_data)
+        
+        sma_data_file=config['sma_file']
+        assert os.path.exists(sma_data_file),f'Sma data file not found:{sma_data_file}'
+        log.info(f'initializing with symbol file: {sma_data_file}')
+        
+        self.smaa_data =pd.read_csv(sma_data_file)
+        self.smaa_data['time'] = pd.to_datetime(self.smaa_data['time'], dayfirst=False)
+        self.smaa_data['time'] = self.smaa_data['time'].dt.tz_localize('UTC').dt.tz_convert('Asia/Kolkata')
+        self.smaa_data['time'] = pd.to_datetime(self.smaa_data['time']).apply(lambda x: int(x.timestamp()))
+        smaa_data_sorted = self.smaa_data.sort_values(by='time')
+        self.smaa_data = smaa_data_sorted.to_json(orient='records')
+        
+     
+        
+       
+        
+        
 
     def getSymbolList(self, date):
         
@@ -46,3 +71,12 @@ class ExampleHandler(Handler):
     def getCandleStick(self, date, symbol):
         
         return self.chart_data
+    
+    def indicator_list(self):
+        if 'Indicator name' in self.indicator_data.columns:
+            return self.indicator_data['Indicator name'].tolist()
+        return []
+    
+    def sma_data(self,date,symbol,indicator):
+        return self.smaa_data
+        

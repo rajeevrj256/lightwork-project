@@ -7,3 +7,6 @@ class Handler(object):
 
     def getCandleStick(self, date, symbol):
         raise NotImplementedError
+    
+    def indicator_list(self):
+        raise NotImplementedError

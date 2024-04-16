@@ -1,30 +1,29 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
+import useFetchIndicator from '../../services/apis/indicator_name_fetch';
 
 function IndicatorDropdown({ onSelectOption }) {
-    // Options for the dropdown, each option needs a value and a label
-    const options = [
-        { value: 'SMA', label: 'Simple Moving Average (SMA)' },
-        { value: 'BB', label: 'Bollinger Bands (BB)' },
-        { value: 'EMA', label: 'Exponential Moving Average (EMA)' },
-        { value: 'RACD', label: 'Relative Average Cost Difference (RACD)' }  // Assuming RACD, replace with correct acronym if different
-    ];
+    // Fetching options using the custom hook
+    const { options, loading, error } = useFetchIndicator();
 
-    const [selectedOption, setSelectedOption] = useState(null);
+    const [selectedOption, setSelectedOption] = useState([]);
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
 
     return (
-        <div className="indicator_menu" style={{ margin: 20, width: 200 }}>
+        <div className="indicator_menu" style={{ margin: 2, width: 180 }}>
             <Select
                 value={selectedOption}
                 onChange={(option) => {
-                    setSelectedOption(option);
-                    onSelectOption(option);  // Call the callback function passed from the parent component
+                    setSelectedOption(option);  // Update the local state
+                    onSelectOption(option);     // Call the callback function with the selected option
                 }}
                 options={options}
                 isSearchable
                 isMulti
-                noOptionsMessage={() => "Not found"}
-                placeholder="Select Indicator"
+                noOptionsMessage={() => "No indicators found"}
+                placeholder="Select Indicators"
             />
         </div>
     );

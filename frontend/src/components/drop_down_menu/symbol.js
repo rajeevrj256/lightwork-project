@@ -11,7 +11,7 @@ function DropdownMenu({ date ,onSelectOption}) {
    
 
     return (
-        <div className="drop_down_menu" style={{ margin: 20, width: 200 }}>
+        <div className="drop_down_menu" style={{ margin: 2, width: 180 }}>
             <Select
                 value={selectedOption}
                 onChange={(option) => {

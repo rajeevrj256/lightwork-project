@@ -2,9 +2,9 @@
 .drop_down_menu {
     position: absolute; /* Use absolute positioning */
     top: -1px; /* Adjust the top position as needed */
-    right: 130px; /* Adjust the right position as needed */
+    right: 140px; /* Adjust the right position as needed */
     z-index: 9999; /* Ensure the dropdown appears above other elements */
-    margin-top: -15px;
+    margin:0;
 }
 
 
@@ -15,6 +15,7 @@
     top: 2px; /* Adjust the top position as needed */
     right: 20px; /* Adjust the right position as needed */
     z-index: 9999; /* Ensure the date picker appears above other elements */
+    margin:0
 }
 .indicator_menu{
     position:absolute;
