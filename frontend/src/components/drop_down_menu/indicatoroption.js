@@ -21,7 +21,6 @@ function IndicatorDropdown({ onSelectOption }) {
                 }}
                 options={options}
                 isSearchable
-                isMulti
                 noOptionsMessage={() => "No indicators found"}
                 placeholder="Select Indicators"
             />

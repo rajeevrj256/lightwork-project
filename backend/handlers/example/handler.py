@@ -42,6 +42,7 @@ class ExampleHandler(Handler):
         log.info(f'initializing with indicator file: {indicator_file_data}')
         
         self.indicator_data=pd.read_csv(indicator_file_data)
+        self.indicator_data=self.indicator_data.to_json()
         
         sma_data_file=config['sma_file']
         assert os.path.exists(sma_data_file),f'Sma data file not found:{sma_data_file}'
@@ -73,9 +74,8 @@ class ExampleHandler(Handler):
         return self.chart_data
     
     def indicator_list(self):
-        if 'Indicator name' in self.indicator_data.columns:
-            return self.indicator_data['Indicator name'].tolist()
-        return []
+        return self.indicator_data
+
     
     def sma_data(self,date,symbol,indicator):
         return self.smaa_data

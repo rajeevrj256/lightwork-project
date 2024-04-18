@@ -1,7 +1,5 @@
-Indicator name
-SMA
-EMA
-BB
-MACD
-RR
-
+time,Indicator_name,color
+14-03-2024 09:16,SMA,green
+14-03-2024 09:17,MACD,blue
+14-03-2024 09:18,RR,red
+14-03-2024 09:19,EMA,green

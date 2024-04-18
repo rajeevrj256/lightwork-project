@@ -4,8 +4,13 @@ export const addlineSeries =(chart ,data,color)=>{
         value:datapoint.value
     }));
     const lineseries=chart.addLineSeries({
-        lineColor: 'transparent',
+        
     })
     lineseries.setData(lineData)
+    lineseries.applyOptions({
+    color:color,
+    })
+    
+    console.log('lineseries color',color)
 
 }

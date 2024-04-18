@@ -16,7 +16,7 @@ import { indiactormergeData } from './components/features/indicatormergerd.js';
 import { IndiactorFetchData } from './services/apis/indicator_data.js';
 
 
-export const ChartComponent = ({ data, colors,width,height,smadata}) => {
+export const ChartComponent = ({ data, colors,width,height,smadata,indicatorColors}) => {
     const chartContainerRef = useRef();
     
    
@@ -41,8 +41,9 @@ export const ChartComponent = ({ data, colors,width,height,smadata}) => {
         addCandlestickSeries(chart,data,colors);
         //add areaSeries
        // addAreaSeries(chart,data,colors);
+       console.log('chart indicator color',indicatorColors)
 
-       addlineSeries(chart,smadata,colors);
+       addlineSeries(chart,smadata,indicatorColors);
 
         
 
@@ -69,7 +70,7 @@ export const ChartComponent = ({ data, colors,width,height,smadata}) => {
             chart.remove();
             
         };
-    }, [data, colors,width,height,smadata]);
+    }, [data, colors,width,height,smadata,indicatorColors]);
 
     return <div ref={chartContainerRef} style={{ width: '100%', height: '100%' }}  />;
 };
@@ -102,20 +103,23 @@ export default function App() {
     }
 
     const[indicator,setindicator]=useState(null)
-    const handleIndicator=(indicator)=>{
-        if(indicator){
-            setindicator(indicator);
-        }else{
-            setindicator(null);
-        }
+    const handleIndicator=(selectedOptions)=>{
+        setindicator(selectedOptions || []);
     }
 
     const indicator_data=IndiactorFetchData(indicator,formatDate(startdate),option?option.value:null)
     const indicator_merged_data=indiactormergeData(indicator_data,interval)
     //fetching data ----assuming data fetched from backend im 1 min timeframe.
+    console.log('option',option)
     const fetch_data=FetchData(formatDate(startdate),option?option.value:null)
  // calling mergeData function for mergeing the data.
     const mergedData = mergeData(fetch_data,interval);
+
+    const indicatorColor = indicator ? indicator.color : 'gray';
+    console.log('indicator',indicator)
+    
+
+    
 
     
     
@@ -144,7 +148,7 @@ export default function App() {
                 <div className="date-picker" >
                 <DatePickerComponent startDate={startdate} setstartDate={handleDateChange} />
             </div>
-                <ChartComponent data={mergedData} colors={{}} smadata={indicator_merged_data} />
+                <ChartComponent data={mergedData} colors={{}} smadata={indicator_merged_data} indicatorColors={indicatorColor || 'grey'} />
             </div>
         </div>
     );

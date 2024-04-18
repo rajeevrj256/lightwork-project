@@ -43,13 +43,7 @@ def symbol_with_dates(day, month, year):
 def indicator_name():
     try:
         
-        data = handler.indicator_list()
-        if data:
-            return jsonify(data)
-        else:
-            res = jsonify({"error": "Date not found"})
-            res.status_code = 404 
-            return res
+        return handler.indicator_list()
             
     except Exception as e:
        
