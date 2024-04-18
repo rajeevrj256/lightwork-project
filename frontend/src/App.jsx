@@ -108,6 +108,9 @@ export default function App() {
     }
 
     const indicator_data=IndiactorFetchData(indicator,formatDate(startdate),option?option.value:null)
+    const indicatorValue = indicator ? indicator.value : 'sma';
+    console.log('value',indicatorValue)
+    
     const indicator_merged_data=indiactormergeData(indicator_data,interval)
     //fetching data ----assuming data fetched from backend im 1 min timeframe.
     console.log('option',option)

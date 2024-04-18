@@ -19,7 +19,7 @@ const useFetchIndicator = () => {
                 // Process the response based on the structure you indicated
                 // Assuming each object key under 'Indicator_name' and 'color' corresponds to an index of an array entry
                 const indicators = Object.keys(data.Indicator_name).map(key => ({
-                    time: data.time[key],
+                   
                     indicatorName: data.Indicator_name[key],
                     color: data.color[key]
                 }));

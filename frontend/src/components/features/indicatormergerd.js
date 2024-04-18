@@ -17,9 +17,11 @@ export const indiactormergeData = (data,interval) => {
             if (currentInterval) {
                 mergedData.push(currentInterval);
             }
+            //const indicatorName = `${indicator}_value`;
+            
             currentInterval = {
                 time: datapoint.time,  // time should in timestamps.
-                value: datapoint.value
+                value: datapoint.SMA_value
             };
         } 
     });
