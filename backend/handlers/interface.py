@@ -10,3 +10,6 @@ class Handler(object):
     
     def indicator_list(self):
         raise NotImplementedError
+    
+    def sma_data(self,date,symbol,indicator_name):
+        raise NotImplementedError

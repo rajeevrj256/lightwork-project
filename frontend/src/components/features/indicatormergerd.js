@@ -21,7 +21,7 @@ export const indiactormergeData = (data,interval) => {
             
             currentInterval = {
                 time: datapoint.time,  // time should in timestamps.
-                value: datapoint.SMA_value
+                value: datapoint.value
             };
         } 
     });

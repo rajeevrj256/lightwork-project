@@ -53,7 +53,8 @@ class ExampleHandler(Handler):
         self.smaa_data['time'] = self.smaa_data['time'].dt.tz_localize('UTC').dt.tz_convert('Asia/Kolkata')
         self.smaa_data['time'] = pd.to_datetime(self.smaa_data['time']).apply(lambda x: int(x.timestamp()))
         smaa_data_sorted = self.smaa_data.sort_values(by='time')
-        self.smaa_data = smaa_data_sorted.to_json(orient='records')
+        self.smaa_data=smaa_data_sorted
+       
         
      
         
@@ -77,6 +78,13 @@ class ExampleHandler(Handler):
         return self.indicator_data
 
     
-    def sma_data(self,date,symbol,indicator):
-        return self.smaa_data
+    def sma_data(self,date,symbol,indicator_name):
+        if indicator_name not in self.smaa_data.columns:
+            log.error(f'Indicator {indicator_name} not found in data')
+            return None
+        # Select only the time and the specified indicator columns
+        result = self.smaa_data[['time', indicator_name]].copy()
+        result.rename(columns={indicator_name:'value'},inplace=True)
+        return result.to_json(orient='records')
+       
         

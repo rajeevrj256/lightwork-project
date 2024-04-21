@@ -49,10 +49,17 @@ def indicator_name():
        
         return jsonify({'error': str(e)}), 500  # Use HTTP 500 for Internal Server Error
         
-@blueprint.route('/csv_data/<indicator>/<day>/<month>/<year>/<symbol>',methods=['GET'])
-def sma_data(indicator,day,month,year,symbol):
+@blueprint.route('/csv_data/<indicator_value>/<day>/<month>/<year>/<symbol>',methods=['GET'])
+def sma_data(indicator_value,day,month,year,symbol):
     try:
-        return  handler.sma_data(datetime.datetime.strptime(f"{day}{month}{year}", "%d%m%Y"), symbol,indicator)
+        values=handler.sma_data(datetime.datetime.strptime(f"{day}{month}{year}", "%d%m%Y"), symbol,indicator_value)
+        if values:
+            return values
+        else:
+            res=jsonify({'Indicator_error','Indicator data not found'})
+            res.status_code=404
+            return res
+        
     except Exception as e:
         res = jsonify({'error': str(e)})
         res.status_code = 504 

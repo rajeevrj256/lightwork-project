@@ -102,22 +102,28 @@ export default function App() {
         }
     }
 
-    const[indicator,setindicator]=useState(null)
+    // handle indicstor name in dropdown
+    const[indicator,setindicator]=useState([])
     const handleIndicator=(selectedOptions)=>{
+        
         setindicator(selectedOptions || []);
     }
-
-    const indicator_data=IndiactorFetchData(indicator,formatDate(startdate),option?option.value:null)
-    const indicatorValue = indicator ? indicator.value : 'sma';
+   
+    // indicator value from indicator array;
+    const indicatorValue = indicator ? indicator.value : 'null';
     console.log('value',indicatorValue)
-    
+    //feteched indiator data for executing line series.
+    const indicator_data=IndiactorFetchData(indicatorValue,formatDate(startdate),option?option.value:null)
+    //calling merged function for indiactor.
     const indicator_merged_data=indiactormergeData(indicator_data,interval)
-    //fetching data ----assuming data fetched from backend im 1 min timeframe.
-    console.log('option',option)
+    
+    //fetch chart data.
     const fetch_data=FetchData(formatDate(startdate),option?option.value:null)
- // calling mergeData function for mergeing the data.
+   // calling mergeData function for mergeing the data.
     const mergedData = mergeData(fetch_data,interval);
 
+    
+    //set indicator color if not found assuming gray color.
     const indicatorColor = indicator ? indicator.color : 'gray';
     console.log('indicator',indicator)
     

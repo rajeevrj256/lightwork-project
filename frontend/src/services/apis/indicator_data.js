@@ -7,15 +7,14 @@ export const IndiactorFetchData = (indiactor,date, symbol) => {
         // Ensure that date and symbol are passed to fetchData
         const fetchData = async () => {
             try {
-                console.log('chart date', date);
-                console.log('chart symbol', symbol);
+               console.log('indiactor in api ',indiactor)
 
                 if (!indiactor || !date || !symbol) {
                     console.log('Indiactor or Date or symbol is undefined');
                     return; // Exit if date or symbol is not provided
                 }
 
-                const response = await fetch(`http://127.0.0.1:5000/csv_data/${encodeURIComponent(indiactor)}/${encodeURIComponent(date)}/${encodeURIComponent(symbol)}`);
+                const response = await fetch(`http://127.0.0.1:5000/csv_data/${encodeURIComponent(indiactor)}_value/${encodeURIComponent(date)}/${encodeURIComponent(symbol)}`);
 
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -39,6 +38,6 @@ export const IndiactorFetchData = (indiactor,date, symbol) => {
         fetchData();
     }, [indiactor,date, symbol]); // Add date and symbol as dependencies to useEffect
 
-    console.log('Initial Data:', initialData);
+    console.log('Initial Data of indicator:', initialData);
     return initialData;
 };
