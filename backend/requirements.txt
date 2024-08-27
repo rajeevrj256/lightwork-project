@@ -1,9 +1,3 @@
 ﻿flask
 pandas
-env
-Blueprint
-datetime
-logging
-argparse
-json
 requests
