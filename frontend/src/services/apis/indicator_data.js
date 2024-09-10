@@ -14,7 +14,7 @@ export const IndiactorFetchData = (indiactor,date, symbol) => {
                     return; // Exit if date or symbol is not provided
                 }
 
-                const response = await fetch(`http://127.0.0.1:5000/csv_data/${encodeURIComponent(indiactor)}_value/${encodeURIComponent(date)}/${encodeURIComponent(symbol)}`);
+                const response = await fetch(`https://lightwork-project.onrender.com/csv_data/${encodeURIComponent(indiactor)}_value/${encodeURIComponent(date)}/${encodeURIComponent(symbol)}`);
 
                 if (!response.ok) {
                     throw new Error('Network response was not ok');

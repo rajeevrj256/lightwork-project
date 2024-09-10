@@ -16,7 +16,7 @@ const useFetchSymbols = (date) => {
           setLoading(true);
           setError(null); // Reset error state on new fetch
           try {
-              const response = await fetch(`http://127.0.0.1:5000/symbol/date=${encodeURIComponent(date)}`);
+              const response = await fetch(`https://lightwork-project.onrender.com/symbol/date=${encodeURIComponent(date)}`);
               if (!response.ok) {
                   throw new Error('Network response was not ok');
               }
