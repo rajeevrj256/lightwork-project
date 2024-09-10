@@ -27,7 +27,7 @@ const useFetchSymbols = (date) => {
       
               if (!symbols || symbols.length === 0) {
                   setError("No symbols found for the given date");
-                  setOptions([]);
+                  setOptions(["No symbols Found on this dates in server"]);
               } else {
                   // Ensure symbols is indeed an array
                   symbols = Array.isArray(symbols) ? symbols : [symbols];
